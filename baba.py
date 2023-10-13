@@ -1,7 +1,6 @@
 import streamlit as st
 import requests
 import pandas as pd
-import matplotlib.pyplot as plt
 from langchain import PromptTemplate, HuggingFaceHub, LLMChain
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 import os
@@ -64,23 +63,13 @@ if option == "Wealth Management":
         # Combine small categories into 'Others'
         top_spenders = top_spenders.append(pd.Series(others.sum(), index=['Others']))
 
-        fig1, ax1 = plt.subplots()
-        ax1.pie(top_spenders, labels=top_spenders.index, autopct='%1.1f%%', startangle=90)
-        ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
-        st.pyplot(fig1)
+        st.pie_chart(top_spenders)
 
         # Display time series graph of money spent over time
         st.write("### Money Spent Over Time")
-        fig2, ax2 = plt.subplots(figsize=(10, 6))
 
         # Plot given data in blue
-        ax2.plot(data['Date Time'], data['Transaction Amount'], color='blue', label='Given Data')
-
-        ax2.set(xlabel='Date Time', ylabel='Transaction Amount', title='Money Spent Over Time')
-        ax2.legend()
-        plt.xticks(rotation=45)
-        plt.tight_layout()
-        st.pyplot(fig2)
+        st.line_chart(data.set_index('Date Time')['Transaction Amount'])
 
 elif option == "Stock Prediction":
     st.title("Stock Prediction")
