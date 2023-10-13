@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 import pandas as pd
-import matplotlib as plt
+import matplotlib.pyplot as plt
 from langchain import PromptTemplate, HuggingFaceHub, LLMChain
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 import os
